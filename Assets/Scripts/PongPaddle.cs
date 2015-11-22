@@ -47,7 +47,6 @@ public class PongPaddle : MonoBehaviour {
 				else if( hit.point.y < minY)
 					pos.y = minY;
 				else pos.y = maxY;
-				Debug.Log(hit.collider.name + " X: " + pos.x + " Y: " + pos.y);
 				z = GetComponent<Renderer> ().transform.position.z;
 				Vector3 vec = new Vector3 (pos.x, pos.y, z);
 				transform.position = vec;
