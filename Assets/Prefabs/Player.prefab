@@ -161,7 +161,7 @@ MonoBehaviour:
   monsterMinZ: -6.5
   monsterMaxZ: 169.100006
   allMonsters:
-  - {fileID: 113356, guid: ca698044760709a48b87a8a72888a310, type: 2}
+  - {fileID: 149514, guid: aa1870f39e5ed554ca7b96c5d31a5043, type: 2}
 --- !u!114 &11459022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -224,7 +224,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: allMonsters.Array.data[0]
       value: 
-      objectReference: {fileID: 113356, guid: ca698044760709a48b87a8a72888a310, type: 2}
+      objectReference: {fileID: 149514, guid: aa1870f39e5ed554ca7b96c5d31a5043, type: 2}
     - target: {fileID: 0}
       propertyPath: monsterMinZ
       value: -6.5
