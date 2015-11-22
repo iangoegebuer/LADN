@@ -68,7 +68,7 @@ public class BallCtl : NetworkBehaviour {
 	[Server]
 	void HandleAllMotion () {
 		if (transform.position.z < -25f) {
-			transform.position = startPos;
+			transform.position = new Vector3(0f,0f,0f);
 			rb = GetComponent<Rigidbody>();
 			
 			rb.velocity = new Vector3(Random.value - 0.5f, Random.value - 0.5f, 1f) * 50f;
@@ -78,7 +78,7 @@ public class BallCtl : NetworkBehaviour {
 			
 		}
 		if (transform.position.z > 180f) {
-			transform.position = startPos;
+			transform.position = new Vector3(0f,0f,155f);
 			rb = GetComponent<Rigidbody>();
 			
 			rb.velocity = new Vector3(Random.value - 0.5f, Random.value - 0.5f, -1f) * 50f;
