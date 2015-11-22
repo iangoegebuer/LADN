@@ -8,18 +8,31 @@ using System.Collections.Generic;
 public class MatchStuff : MonoBehaviour {
 	NetworkMatch netMatch;
 	NetworkManager netMgr;
+	NetworkClient netClient;
+
+	public GameObject hudToDeactivate;
+
+	public GameObject redStart;
+	public GameObject greenStart;
+	public GameObject theCamera;
+
 	bool canPress = true;
+	bool alreadyLoaded = false;
 
 	// Use this for initialization
 	void Start () {
 		netMatch = gameObject.AddComponent<NetworkMatch>();
 		netMgr = GetComponent<NetworkManager>();
+		netMgr.matchMaker = netMatch;
 
 		netMatch.SetProgramAppID((AppID)520001);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(alreadyLoaded) {
+			alreadyLoaded = false;
+		}
 	
 	}
 
@@ -34,7 +47,7 @@ public class MatchStuff : MonoBehaviour {
 		create.size = 2;
 		create.advertise = true;
 		create.password = "";
-		
+
 		netMatch.CreateMatch(create, OnMatchCreate);
 	}
 
@@ -48,12 +61,32 @@ public class MatchStuff : MonoBehaviour {
 	}
 
 	void OnMatchCreate (CreateMatchResponse cmr) {
+		netMgr.OnMatchCreate(cmr);
+
+
 		if (cmr.success) {
-			Debug.Log("Create match succeeded");
+			/*Debug.Log("Create match succeeded");
 			//matchCreated = true;
 			Utility.SetAccessTokenForNetwork(cmr.networkId, new NetworkAccessToken(cmr.accessTokenString));
 			NetworkServer.Listen(new MatchInfo(cmr), 9000);
-			Application.LoadLevel("pongz");
+
+			NetworkClient netClient = new NetworkClient();
+			netClient.RegisterHandler(MsgType.Connect, OnConnected);
+			netClient.Connect("127.0.0.1",9000);*/
+
+			//netClient = ClientScene.ConnectLocalServer();
+			//netClient.RegisterHandler(MsgType.Connect, OnConnected);
+
+
+			if (!alreadyLoaded) {
+				alreadyLoaded = true;
+				hudToDeactivate.SetActive(false);
+				theCamera.transform.position = greenStart.transform.position;
+				theCamera.transform.rotation = greenStart.transform.rotation;
+				greenStart.SetActive(false);
+			} else {
+				Debug.LogError("Level already loaded?");
+			}
 		} else {
 			Debug.LogError ("Create match failed");
 			canPress = true;
@@ -69,6 +102,7 @@ public class MatchStuff : MonoBehaviour {
 	
 	public void OnMatchJoined(JoinMatchResponse matchJoin)
 	{
+		netMgr.OnMatchJoined(matchJoin);
 		if (matchJoin.success) {
 			Debug.Log("Join match succeeded");
 			/*if (matchCreated) {
@@ -76,10 +110,19 @@ public class MatchStuff : MonoBehaviour {
 				canPress = true;
 				return;
 			}*/
-			Utility.SetAccessTokenForNetwork(matchJoin.networkId, new NetworkAccessToken(matchJoin.accessTokenString));
-			NetworkClient myClient = new NetworkClient();
-			myClient.RegisterHandler(MsgType.Connect, OnConnected);
-			myClient.Connect(new MatchInfo(matchJoin));
+			//Utility.SetAccessTokenForNetwork(matchJoin.networkId, new NetworkAccessToken(matchJoin.accessTokenString));
+			//NetworkClient netClient = new NetworkClient();
+			//netClient.RegisterHandler(MsgType.Connect, OnConnected);
+			//netClient.Connect(new MatchInfo(matchJoin));
+			if (!alreadyLoaded)  {
+				alreadyLoaded = true;
+				hudToDeactivate.SetActive(false);
+				theCamera.transform.position = redStart.transform.position;
+				theCamera.transform.rotation = redStart.transform.rotation;
+				redStart.SetActive(false);
+			} else {
+				Debug.LogError("Holy shit already loaded");
+			}
 		}
 		else
 		{
@@ -91,5 +134,6 @@ public class MatchStuff : MonoBehaviour {
 	public void OnConnected(NetworkMessage msg)
 	{
 		Debug.Log("Connected!");
+		//ClientScene.AddPlayer(netClient.connection, 0);
 	}
 }
