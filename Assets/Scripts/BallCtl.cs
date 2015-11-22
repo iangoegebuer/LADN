@@ -123,6 +123,22 @@ public class BallCtl : NetworkBehaviour {
 		}
 	}
 
+	public void Accelerate() {
+		physState.position = rb.position;
+		
+		posx = physState.position.x;
+		posy = physState.position.y;
+		posz = physState.position.z;
+		
+		physState.vel = rb.velocity;
+
+		physState.vel *= 2f;
+		
+		velx = physState.vel.x;
+		vely = physState.vel.y;
+		velz = physState.vel.z;
+	}
+	
 	IEnumerator KillMeIn (float time) {
 		yield return new WaitForSeconds(time);
 		this.enabled = false;
