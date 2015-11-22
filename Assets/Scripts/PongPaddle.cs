@@ -16,7 +16,9 @@ public class PongPaddle : NetworkBehaviour {
 	public float minY;
 	public float maxY;
 
-	[SyncVar]
+	public GameObject[] allMonsters;
+
+	[SyncVar(hook = "OnPaddleStateChange")]
 	PaddleState state;
 	// Use this for initialization
 	void Start () {
@@ -62,13 +64,17 @@ public class PongPaddle : NetworkBehaviour {
 		if (isLocalPlayer) {
 			RaycastHit[] hits;
 			hits = Physics.RaycastAll(cam.transform.position, cam.transform.forward, 100.0F);
+
+			bool spawnADude = false;
+			if (Input.GetMouseButtonDown(0) || (Input.touchCount == 1
+			    	&& Input.GetTouch(0).phase == TouchPhase.Began)) {
+				spawnADude = true;
+			}
 			
 			//Debug.Log (hits.Length);
 			Vector3 posToGo = transform.position;
 			
-			for (int i = 0; i < hits.Length; i++) {
-				RaycastHit hit = hits [i];
-				
+			foreach (RaycastHit hit in hits) {
 				if(hit.collider.gameObject == collide) {
 					//Debug.Log(hit.collider.name + " X: " + state.pos.x + " Y: " + state.pos.y);
 					if(hit.point.x > minX && hit.point.x < maxX)
@@ -81,6 +87,8 @@ public class PongPaddle : NetworkBehaviour {
 					else if( hit.point.y < minY)
 						posToGo.y = minY;
 					else posToGo.y = maxY;
+				} else if (spawnADude && hit.collider.name.StartsWith("Plane")) { // Walls
+					CmdSpawnDude(hit.point, hit.normal);
 				}
 			}
 			Debug.DrawLine(cam.transform.position, posToGo);
@@ -96,9 +104,27 @@ public class PongPaddle : NetworkBehaviour {
 
 	[Command]
 	void CmdSpawnBall () {
-		GameObject ball = Instantiate(ballPrefab);
+		GameObject ball = Instantiate<GameObject>(ballPrefab);
 		ball.GetComponent<BallCtl>().scores = GameObject.Find("Scoreboard");
 		NetworkServer.Spawn(ball);
+	}
+
+	[Command]
+	void CmdSpawnDude (Vector3 pos, Vector3 normal) {
+		Debug.Log("Spawning a dude! " + pos + " " + normal);
+		int monsterInd = Mathf.FloorToInt(Random.value * allMonsters.Length);
+		if (allMonsters.Length > 0) {
+			GameObject mons = Instantiate<GameObject>(allMonsters[monsterInd]);
+			mons.transform.position = pos;
+			if (normal == Vector3.left) {
+				mons.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));
+			} else if (normal == Vector3.down) {
+				mons.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
+			} else if (normal == Vector3.right) {
+				mons.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -90f));
+			}
+			NetworkServer.Spawn(mons);
+		}
 	}
 	
 	IEnumerator SendPosCoroutine (float interval) {
@@ -106,5 +132,10 @@ public class PongPaddle : NetworkBehaviour {
 			yield return new WaitForSeconds(interval);
 			CmdRaycastNewPos(transform.position);
 		}
+	}
+
+	void OnPaddleStateChange(PaddleState ps) {
+		Debug.Log (ps);
+		state = ps;
 	}
 }

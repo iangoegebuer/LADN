@@ -91,9 +91,12 @@ public class MatchStuff : MonoBehaviour {
 	}
 	public void OnMatchList(ListMatchResponse matchListResponse)
 	{
-		if (matchListResponse.success && matchListResponse.matches != null) {
+		if (matchListResponse.success && matchListResponse.matches != null
+		    	&& matchListResponse.matches.Count > 0) {
 			int randomChoice = Mathf.FloorToInt(Random.value * matchListResponse.matches.Count);
 			netMatch.JoinMatch(matchListResponse.matches[0].networkId, "", OnMatchJoined);
+		} else {
+			Debug.LogError ("Unable to join any matches.");
 		}
 	}
 	
