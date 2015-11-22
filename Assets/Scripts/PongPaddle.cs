@@ -17,6 +17,9 @@ public class PongPaddle : NetworkBehaviour {
 	public float minY;
 	public float maxY;
 
+	public float monsterMinZ;
+	public float monsterMaxZ;
+
 	public GameObject[] allMonsters;
 
 	PaddleState state;
@@ -123,7 +126,7 @@ public class PongPaddle : NetworkBehaviour {
 	void CmdSpawnDude (Vector3 pos, Vector3 normal) {
 		Debug.Log("Spawning a dude! " + pos + " " + normal);
 		int monsterInd = Mathf.FloorToInt(Random.value * allMonsters.Length);
-		if (allMonsters.Length > 0) {
+		if (allMonsters.Length > 0 && pos.z < monsterMaxZ && pos.z > monsterMinZ) {
 			GameObject mons = Instantiate<GameObject>(allMonsters[monsterInd]);
 			mons.transform.position = pos;
 			if (normal == Vector3.left) {
