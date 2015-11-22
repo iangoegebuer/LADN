@@ -117,6 +117,7 @@ public class MatchStuff : MonoBehaviour {
 				theCamera.transform.position = redStart.transform.position;
 				theCamera.transform.rotation = redStart.transform.rotation;
 				redStart.SetActive(false);
+				NetworkServer.SpawnObjects();
 			} else {
 				Debug.LogError("Holy shit already loaded");
 			}

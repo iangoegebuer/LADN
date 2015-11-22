@@ -21,7 +21,7 @@ public class BallCtl : NetworkBehaviour {
 		rb = GetComponent<Rigidbody>();
 		if (isServer) {
 			InitState();
-			StartCoroutine(SendPosCoroutine(1f));
+			StartCoroutine(SendPosCoroutine(0.1f));
 		}
 	}
 
@@ -93,8 +93,8 @@ public class BallCtl : NetworkBehaviour {
 	[Server]
 	IEnumerator SendPosCoroutine (float interval) {
 		while (true) {
-			physState.position = rb.position;
-			physState.vel = rb.velocity;
+			//physState.position = rb.position;
+			//physState.vel = rb.velocity;
 			yield return new WaitForSeconds(interval);
 		}
 	}

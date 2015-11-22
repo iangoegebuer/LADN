@@ -16,8 +16,10 @@ public class PongPaddle : NetworkBehaviour {
 	public float minY;
 	public float maxY;
 
-	[SyncVar]
 	PaddleState state;
+
+	[SyncVar]
+	int statex,statey,statez;
 	// Use this for initialization
 	void Start () {
 		cam = GameObject.Find("CardboardMain").transform.FindChild("Head").gameObject;
@@ -30,6 +32,9 @@ public class PongPaddle : NetworkBehaviour {
 		} else {
 			collide = GameObject.Find("PaddlePlaneRed");
 			GetComponent<MeshRenderer>().material = RedMaterial;
+			if (isServer) {
+				CmdSpawnBall();
+			}
 		}
 
 		if (isServer) {
@@ -92,6 +97,9 @@ public class PongPaddle : NetworkBehaviour {
 	[Command]
 	void CmdRaycastNewPos (Vector3 posToSet) {
 		state.pos = posToSet;
+		statex = state.pos.x;
+		statey = state.pos.y;
+		statez = state.pos.z;
 	}
 
 	[Command]
