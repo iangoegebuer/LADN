@@ -34,25 +34,22 @@ public class MultiplayerCube : NetworkBehaviour {
 		if (isLocalPlayer) {
 			HandleInput();
 		}
+		SyncState();
 	}
 
 	void HandleInput ()
 	{
 		if (Input.GetKey (KeyCode.LeftArrow)) {
 			state.x -= SPEED_AROUND;
-			SyncState ();
 		}
 		if (Input.GetKey (KeyCode.RightArrow)) {
 			state.x += SPEED_AROUND;
-			SyncState ();
 		}
 		if (Input.GetKey (KeyCode.DownArrow)) {
 			state.y -= SPEED_AROUND;
-			SyncState ();
 		}
 		if (Input.GetKey (KeyCode.UpArrow)) {
 			state.y += SPEED_AROUND;
-			SyncState ();
 		}
 	}
 }
