@@ -49,7 +49,7 @@ public class PongPaddle : NetworkBehaviour {
 		}
 
 		if (isLocalPlayer) {
-			StartCoroutine(SendPosCoroutine(0.1f));
+			StartCoroutine(SendPosCoroutine(0.016667f));
 		}
 	}
 
