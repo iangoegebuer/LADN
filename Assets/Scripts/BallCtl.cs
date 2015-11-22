@@ -11,6 +11,8 @@ public class BallCtl : NetworkBehaviour {
 	Rigidbody rb;
 	Vector3 startPos;
 	RBInfo physState;
+	AudioSource audioSrc;
+	public AudioClip pointClip;
 
 	public float expires = 0f;
 	public Material altBallMtl;
@@ -22,6 +24,8 @@ public class BallCtl : NetworkBehaviour {
 	void Start () {
 		Debug.Log (isClient);
 		Debug.Log (isServer);
+		audioSrc = GetComponent<AudioSource>();
+
 		rb = GetComponent<Rigidbody>();
 		if (isServer) {
 			InitState();
@@ -83,7 +87,8 @@ public class BallCtl : NetworkBehaviour {
 			scores.GetComponent<ScoreHandler>().UpdateRed(1);
 			TrailRenderer TR = GetComponent<TrailRenderer>();
 			ResetTrail(TR);
-			
+			audioSrc.PlayOneShot(pointClip);
+			RpcPlayPointSound();
 		}
 		if (transform.position.z > 180f) {
 			transform.position = new Vector3(0f,0f,155f);
@@ -93,7 +98,14 @@ public class BallCtl : NetworkBehaviour {
 			scores.GetComponent<ScoreHandler>().UpdateGreen(1);
 			TrailRenderer TR = GetComponent<TrailRenderer>();
 			ResetTrail(TR);
+			audioSrc.PlayOneShot(pointClip);
+			RpcPlayPointSound();
 		}
+	}
+
+	[ClientRpc]
+	void RpcPlayPointSound () {
+		audioSrc.PlayOneShot(pointClip);
 	}
 
 	[Server]
@@ -146,5 +158,11 @@ public class BallCtl : NetworkBehaviour {
 			NetworkServer.UnSpawn(gameObject);
 		}
 		Destroy (gameObject);
+	}
+
+	void OnCollisionEnter(Collision collision) {
+		if (collision.relativeVelocity.magnitude > 2) {
+			audioSrc.Play();
+		}
 	}
 }
