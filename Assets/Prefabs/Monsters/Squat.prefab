@@ -8,6 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 403084}
+  - 114: {fileID: 11433926}
   m_Layer: 0
   m_Name: Squat
   m_TagString: Untagged
@@ -74,6 +75,38 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11433926
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 170
+    i1: 24
+    i2: 112
+    i3: 243
+    i4: 158
+    i5: 94
+    i6: 213
+    i7: 84
+    i8: 202
+    i9: 123
+    i10: 150
+    i11: 197
+    i12: 211
+    i13: 26
+    i14: 80
+    i15: 67
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!212 &21245158
 SpriteRenderer:
   m_ObjectHideFlags: 1
