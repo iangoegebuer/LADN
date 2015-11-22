@@ -114,7 +114,7 @@ public class PongPaddle : NetworkBehaviour {
 
 	[Command]
 	void CmdSpawnBall () {
-		GameObject scoreboard = Instantiate<GameObject>(scoreprefab);
+		GameObject scoreboard = Instantiate(scoreprefab);
 		NetworkServer.Spawn(scoreboard);
 
 		GameObject ball = Instantiate<GameObject>(ballPrefab);

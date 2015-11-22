@@ -152,7 +152,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   collide: {fileID: 0}
   ballPrefab: {fileID: 113356, guid: ca698044760709a48b87a8a72888a310, type: 2}
-  scoreprefab: {fileID: 0}
+  scoreprefab: {fileID: 187148, guid: 5a3b7761c509f744db18f0ca3efbdae4, type: 2}
   RedMaterial: {fileID: 2100000, guid: 890b55c08b6cee9418572a87e7561823, type: 2}
   minX: -11
   maxX: 9
