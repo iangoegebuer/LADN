@@ -2107,6 +2107,10 @@ Prefab:
       propertyPath: m_MaxDelay
       value: .100000001
       objectReference: {fileID: 0}
+    - target: {fileID: 11470894, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
+      propertyPath: m_LogLevel
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11437528, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}

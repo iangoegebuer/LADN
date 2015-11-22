@@ -21,7 +21,7 @@ public class BallCtl : NetworkBehaviour {
 		rb = GetComponent<Rigidbody>();
 		if (isServer) {
 			InitState();
-			StartCoroutine(SendPosCoroutine(1f));
+			StartCoroutine(SendPosCoroutine(0.1f));
 		}
 	}
 
