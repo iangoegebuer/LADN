@@ -28,11 +28,10 @@ public class PongPaddle : NetworkBehaviour {
 				GameObject ball = Instantiate(ballPrefab);
 				ball.GetComponent<BallCtl>().scores = GameObject.Find("Scoreboard");
 				NetworkServer.Spawn(ball);
-			} else {
-				GetComponent<MeshRenderer>().material = RedMaterial;
 			}
 		} else {
 			collide = GameObject.Find("PaddlePlaneRed");
+			GetComponent<MeshRenderer>().material = RedMaterial;
 		}
 
 		if (isServer) {
