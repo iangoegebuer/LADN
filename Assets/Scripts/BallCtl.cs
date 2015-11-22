@@ -84,10 +84,12 @@ public class BallCtl : NetworkBehaviour {
 			rb = GetComponent<Rigidbody>();
 			
 			rb.velocity = new Vector3(Random.value - 0.5f, Random.value - 0.5f, 1f) * 50f;
-			scores.GetComponent<ScoreHandler>().UpdateRed(1);
+			if (scores != null) {
+				scores.GetComponent<ScoreHandler>().UpdateRed(1);
+			}
 			TrailRenderer TR = GetComponent<TrailRenderer>();
 			ResetTrail(TR);
-			audioSrc.PlayOneShot(pointClip);
+			//audioSrc.PlayOneShot(pointClip);
 			RpcPlayPointSound();
 		}
 		if (transform.position.z > 180f) {
@@ -95,10 +97,12 @@ public class BallCtl : NetworkBehaviour {
 			rb = GetComponent<Rigidbody>();
 			
 			rb.velocity = new Vector3(Random.value - 0.5f, Random.value - 0.5f, -1f) * 50f;
-			scores.GetComponent<ScoreHandler>().UpdateGreen(1);
+			if (scores != null) {
+				scores.GetComponent<ScoreHandler>().UpdateGreen(1);
+			}
 			TrailRenderer TR = GetComponent<TrailRenderer>();
 			ResetTrail(TR);
-			audioSrc.PlayOneShot(pointClip);
+			//audioSrc.PlayOneShot(pointClip);
 			RpcPlayPointSound();
 		}
 	}

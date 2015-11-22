@@ -166,7 +166,7 @@ MonoBehaviour:
   - {fileID: 129438, guid: 4bc2bf550b241fc4aa01b5b4aef6fa06, type: 2}
   - {fileID: 158884, guid: a371da0098f97324eb48024da68c10af, type: 2}
   - {fileID: 143970, guid: ac0cdf2114185c9428b23d8fee3e8533, type: 2}
-  monsterIntervalSec: 2.5
+  monsterIntervalSec: 1.70000005
 --- !u!114 &11459022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -240,7 +240,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: monsterIntervalSec
-      value: 2.5
+      value: 1.70000005
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: allMonsters.Array.data[1]
