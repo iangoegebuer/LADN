@@ -42,7 +42,12 @@ public class PongPaddle : NetworkBehaviour {
 	}
 
 	void SyncState () {
+		if (!isLocalPlayer) {
 		transform.position = state.pos;
+		}
+		Vector3 vec = state.pos;
+		vec.z = collide.transform.position.z;
+		transform.position = vec;
 	}
 	
 	// Update is called once per frame
@@ -71,6 +76,8 @@ public class PongPaddle : NetworkBehaviour {
 					else posToGo.y = maxY;
 				}
 			}
+			Debug.DrawLine(cam.transform.position, posToGo);
+			transform.position = posToGo;
 			CmdRaycastNewPos(posToGo);
 		}
 		SyncState();
