@@ -20,12 +20,13 @@ public class PongPaddle : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
 		cam = GameObject.Find("CardboardMain").transform.FindChild("Head").gameObject;
-		if(isServer) {
+		if((isServer && isLocalPlayer) || (!isServer && !isLocalPlayer)) {
 			collide = GameObject.Find("PaddlePlaneGreen");
 
-			GameObject ball = Instantiate(ballPrefab);
-			NetworkServer.Spawn(ball);
-
+			if (isServer) {
+				GameObject ball = Instantiate(ballPrefab);
+				NetworkServer.Spawn(ball);
+			}
 		} else {
 			collide = GameObject.Find("PaddlePlaneRed");
 		}
