@@ -2081,16 +2081,16 @@ Prefab:
       objectReference: {fileID: 181646, guid: ffdb10740443d15459d1553557faf4b5, type: 2}
     - target: {fileID: 11470894, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
       propertyPath: m_CustomConfig
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11470894, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
       propertyPath: m_Channels.Array.data[0]
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11470894, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
       propertyPath: m_SpawnPrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 113356, guid: ca698044760709a48b87a8a72888a310, type: 2}
     - target: {fileID: 11470894, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
       propertyPath: m_PlayerSpawnMethod
       value: 1
@@ -2110,14 +2110,6 @@ Prefab:
     - target: {fileID: 11470894, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
       propertyPath: m_LogLevel
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11470894, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
-      propertyPath: m_ConnectionConfig.m_MinUpdateTimeout
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 11470894, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
-      propertyPath: m_ConnectionConfig.m_PingTimeout
-      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11437528, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}

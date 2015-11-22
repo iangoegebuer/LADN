@@ -172,7 +172,7 @@ MonoBehaviour:
     i13: 136
     i14: 163
     i15: 16
-  m_ServerOnly: 1
+  m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!114 &11497574
 MonoBehaviour:
@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a148afc2ba842f04d8aae1c89ccedc0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scores: {fileID: 0}
 --- !u!135 &13596636
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -203,7 +204,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_ServerOnly
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 113356}
