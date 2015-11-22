@@ -26,9 +26,7 @@ public class PongPaddle : NetworkBehaviour {
 		if((isServer && isLocalPlayer) || (!isServer && !isLocalPlayer)) {
 			collide = GameObject.Find("PaddlePlaneGreen");
 
-			if (isServer) {
-				CmdSpawnBall();
-			}
+
 		} else {
 			collide = GameObject.Find("PaddlePlaneRed");
 			GetComponent<MeshRenderer>().material = RedMaterial;
@@ -42,7 +40,7 @@ public class PongPaddle : NetworkBehaviour {
 		}
 
 		if (isLocalPlayer) {
-			StartCoroutine(SendPosCoroutine(0.5f));
+			StartCoroutine(SendPosCoroutine(0.1f));
 		}
 	}
 

@@ -1,32 +1,42 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class ScoreHandler : MonoBehaviour {
+public class ScoreHandler : NetworkBehaviour {
 	public Text RedScore;
 	public Text GreenScore;
-	int redScore;
-	int greenScore;
+
+	[SyncVar]
+	int redScore,greenScore;
 
 	// Use this for initialization
 	void Start () {
-		redScore = 0;
-		greenScore = 0;
+		if (isServer) {
+			redScore = 0;
+			greenScore = 0;
+		}
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
-	
-	public void UpdateRed(int score) {
-		redScore += score;
+		GreenScore.text = greenScore.ToString ("D2");
 		RedScore.text = redScore.ToString ("D2");
+	}
+
+
+	public void UpdateRed(int score) {
+		if (isServer) {
+			redScore += score;
+			RedScore.text = redScore.ToString ("D2");
+		}
 	}
 	
 	public void UpdateGreen(int score) {
-		greenScore += score;
-		GreenScore.text = greenScore.ToString ("D2");
+		if (isServer) {
+			greenScore += score;
+			GreenScore.text = greenScore.ToString ("D2");
+		}
 	}
 
 }

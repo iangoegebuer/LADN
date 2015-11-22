@@ -10,9 +10,10 @@ public class BallCtl : NetworkBehaviour {
 	public GameObject scores;
 	Rigidbody rb;
 	Vector3 startPos;
+	RBInfo physState;
 
 	[SyncVar]
-	RBInfo physState;
+	float posx,posy,posz,velx,vely,velz;
 
 	// Use this for initialization  ((Random.value - 0.5f)<0)?1f:
 	void Start () {
@@ -23,11 +24,11 @@ public class BallCtl : NetworkBehaviour {
 			InitState();
 			StartCoroutine(SendPosCoroutine(0.1f));
 		}
+		rb.isKinematic = false;
 	}
 
 	[Server]
 	void InitState () {
-		rb.isKinematic = false;
 		startPos = transform.position;
 		rb.velocity = new Vector3(Random.value - 0.5f, Random.value - 0.5f, ((Random.value - 0.5f)<0)?1f:-1f) * 50f;
 		physState.position = rb.position;
@@ -54,8 +55,13 @@ public class BallCtl : NetworkBehaviour {
 	
 	void SyncState () {
 		if (!isServer) {
-			rb.position = physState.position;
-			rb.velocity = physState.vel;
+			if(physState.position != new Vector3(posx,posy,posz)) {
+				physState.position = new Vector3(posx,posy,posz);
+				physState.vel = new Vector3(velx,vely,velz);
+				rb.position = physState.position;
+				rb.velocity = physState.vel;
+			}
+
 		}
 	}
 
@@ -93,8 +99,18 @@ public class BallCtl : NetworkBehaviour {
 	[Server]
 	IEnumerator SendPosCoroutine (float interval) {
 		while (true) {
-			//physState.position = rb.position;
-			//physState.vel = rb.velocity;
+			physState.position = rb.position;
+			
+			posx = physState.position.x;
+			posy = physState.position.y;
+			posz = physState.position.z;
+
+			physState.vel = rb.velocity;
+			
+			velx = physState.vel.x;
+			vely = physState.vel.y;
+			velz = physState.vel.z;
+
 			yield return new WaitForSeconds(interval);
 		}
 	}
