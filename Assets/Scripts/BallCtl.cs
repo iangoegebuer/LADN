@@ -12,6 +12,9 @@ public class BallCtl : NetworkBehaviour {
 	Vector3 startPos;
 	RBInfo physState;
 
+	public float expires = 0f;
+	public Material altBallMtl;
+
 	[SyncVar]
 	float posx,posy,posz,velx,vely,velz;
 
@@ -23,6 +26,11 @@ public class BallCtl : NetworkBehaviour {
 		if (isServer) {
 			InitState();
 			StartCoroutine(SendPosCoroutine(0.1f));
+
+			if (expires > 0f) {
+				GetComponent<MeshRenderer>().material = altBallMtl;
+				StartCoroutine(KillMeIn(expires));
+			}
 		}
 		rb.isKinematic = false;
 	}
@@ -98,7 +106,7 @@ public class BallCtl : NetworkBehaviour {
 
 	[Server]
 	IEnumerator SendPosCoroutine (float interval) {
-		while (true) {
+		while (enabled) {
 			physState.position = rb.position;
 			
 			posx = physState.position.x;
@@ -113,5 +121,14 @@ public class BallCtl : NetworkBehaviour {
 
 			yield return new WaitForSeconds(interval);
 		}
+	}
+
+	IEnumerator KillMeIn (float time) {
+		yield return new WaitForSeconds(time);
+		this.enabled = false;
+		if (isServer) {
+			NetworkServer.UnSpawn(gameObject);
+		}
+		Destroy (gameObject);
 	}
 }

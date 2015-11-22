@@ -1,9 +1,12 @@
 fileFormatVersion: 2
 guid: f29b8ce89279797499ed6a74230dde43
-timeCreated: 1448201859
+timeCreated: 1448205846
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: smoke_sheet_0
+    21300002: smoke_sheet_1
+    21300004: smoke_sheet_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -49,7 +52,37 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: smoke_sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 538
+        height: 1000
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: smoke_sheet_1
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 0
+        width: 966
+        height: 1000
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: smoke_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 358
+        width: 400
+        height: 527
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
   assetBundleName: 

@@ -99,6 +99,7 @@ public class MatchStuff : MonoBehaviour {
 			netMatch.JoinMatch(matchListResponse.matches[0].networkId, "", OnMatchJoined);
 		} else {
 			Debug.LogError ("Unable to join any matches.");
+			canPress = true;
 		}
 	}
 	

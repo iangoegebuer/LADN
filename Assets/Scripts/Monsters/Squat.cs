@@ -13,7 +13,7 @@ public class Squat : NetworkBehaviour {
 	public float lifeSpanRange;
 
 	// Use this for initialization
-	void Start () {
+	protected virtual void Start () {
 		if (isServer) {
 			r = Random.value;
 			g = Random.value;
@@ -24,8 +24,9 @@ public class Squat : NetworkBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected virtual void Update () {
 		transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, rotation));
+		GetComponentInChildren<SpriteRenderer>().color = Color.Lerp(Color.white, new Color(r, g, b), 0.7f);
 	}
 
 	IEnumerator KillMeIn (float time) {

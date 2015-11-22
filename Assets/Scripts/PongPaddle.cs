@@ -22,6 +22,9 @@ public class PongPaddle : NetworkBehaviour {
 
 	public GameObject[] allMonsters;
 
+	public float monsterIntervalSec;
+	bool canMakeMonster = true;
+
 	PaddleState state;
 
 	[SyncVar]
@@ -75,7 +78,11 @@ public class PongPaddle : NetworkBehaviour {
 			bool spawnADude = false;
 			if (Input.GetMouseButtonDown(0) || (Input.touchCount == 1
 			    	&& Input.GetTouch(0).phase == TouchPhase.Began)) {
-				spawnADude = true;
+				if (canMakeMonster) {
+					spawnADude = true;
+					canMakeMonster = false;
+					StartCoroutine(SetCanMakeMonster());
+				}
 			}
 			
 			//Debug.Log (hits.Length);
@@ -153,5 +160,10 @@ public class PongPaddle : NetworkBehaviour {
 	void OnPaddleStateChange(PaddleState ps) {
 		Debug.Log (ps);
 		state = ps;
+	}
+
+	IEnumerator SetCanMakeMonster () {
+		yield return new WaitForSeconds(monsterIntervalSec);
+		canMakeMonster = true;
 	}
 }

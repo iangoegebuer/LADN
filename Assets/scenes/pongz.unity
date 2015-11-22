@@ -1640,7 +1640,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11470894, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
       propertyPath: m_SpawnPrefabs.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 430246, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1726,6 +1726,14 @@ Prefab:
       propertyPath: m_SpawnPrefabs.Array.data[1]
       value: 
       objectReference: {fileID: 187148, guid: 5a3b7761c509f744db18f0ca3efbdae4, type: 2}
+    - target: {fileID: 11470894, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
+      propertyPath: m_SpawnPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 149514, guid: aa1870f39e5ed554ca7b96c5d31a5043, type: 2}
+    - target: {fileID: 11470894, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
+      propertyPath: m_SpawnPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 129438, guid: 4bc2bf550b241fc4aa01b5b4aef6fa06, type: 2}
     m_RemovedComponents:
     - {fileID: 11437528, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 036bd6c98e44d4448980e7307bd31f57, type: 2}
@@ -1960,6 +1968,7 @@ MonoBehaviour:
   monsterMinZ: 0
   monsterMaxZ: 0
   allMonsters: []
+  monsterIntervalSec: 0
 --- !u!23 &1138058289
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2869,6 +2878,7 @@ MonoBehaviour:
   monsterMinZ: 0
   monsterMaxZ: 0
   allMonsters: []
+  monsterIntervalSec: 0
 --- !u!23 &2128601422
 MeshRenderer:
   m_ObjectHideFlags: 0
