@@ -25,7 +25,7 @@ public class PongPaddle : NetworkBehaviour {
 			collide = GameObject.Find("PaddlePlaneGreen");
 
 			if (isServer) {
-				SpawnBall();
+				CmdSpawnBall();
 			}
 		} else {
 			collide = GameObject.Find("PaddlePlaneRed");
