@@ -25,9 +25,7 @@ public class PongPaddle : NetworkBehaviour {
 			collide = GameObject.Find("PaddlePlaneGreen");
 
 			if (isServer) {
-				GameObject ball = Instantiate(ballPrefab);
-				ball.GetComponent<BallCtl>().scores = GameObject.Find("Scoreboard");
-				NetworkServer.Spawn(ball);
+				SpawnBall();
 			}
 		} else {
 			collide = GameObject.Find("PaddlePlaneRed");
@@ -39,7 +37,7 @@ public class PongPaddle : NetworkBehaviour {
 		}
 
 		if (isLocalPlayer) {
-			StartCoroutine(SendPosCoroutine(0.2f));
+			StartCoroutine(SendPosCoroutine(0.5f));
 		}
 	}
 
@@ -66,13 +64,13 @@ public class PongPaddle : NetworkBehaviour {
 			hits = Physics.RaycastAll(cam.transform.position, cam.transform.forward, 100.0F);
 			
 			//Debug.Log (hits.Length);
-			Vector3 posToGo = state.pos;
+			Vector3 posToGo = transform.position;
 			
 			for (int i = 0; i < hits.Length; i++) {
 				RaycastHit hit = hits [i];
 				
 				if(hit.collider.gameObject == collide) {
-					Debug.Log(hit.collider.name + " X: " + state.pos.x + " Y: " + state.pos.y);
+					//Debug.Log(hit.collider.name + " X: " + state.pos.x + " Y: " + state.pos.y);
 					if(hit.point.x > minX && hit.point.x < maxX)
 						posToGo.x = hit.point.x;
 					else if( hit.point.x < minX)
@@ -96,10 +94,17 @@ public class PongPaddle : NetworkBehaviour {
 		state.pos = posToSet;
 	}
 
+	[Command]
+	void CmdSpawnBall () {
+		GameObject ball = Instantiate(ballPrefab);
+		ball.GetComponent<BallCtl>().scores = GameObject.Find("Scoreboard");
+		NetworkServer.Spawn(ball);
+	}
+	
 	IEnumerator SendPosCoroutine (float interval) {
 		while (true) {
-			CmdRaycastNewPos(transform.position);
 			yield return new WaitForSeconds(interval);
+			CmdRaycastNewPos(transform.position);
 		}
 	}
 }

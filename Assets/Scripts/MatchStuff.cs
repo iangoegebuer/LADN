@@ -30,10 +30,7 @@ public class MatchStuff : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(alreadyLoaded) {
-			alreadyLoaded = false;
-		}
-	
+
 	}
 
 	public void PressCreate () {
@@ -129,11 +126,5 @@ public class MatchStuff : MonoBehaviour {
 			Debug.LogError("Join match failed");
 			canPress = true;
 		}
-	}
-	
-	public void OnConnected(NetworkMessage msg)
-	{
-		Debug.Log("Connected!");
-		//ClientScene.AddPlayer(netClient.connection, 0);
 	}
 }
