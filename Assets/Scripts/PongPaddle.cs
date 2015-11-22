@@ -31,7 +31,11 @@ public class PongPaddle : NetworkBehaviour {
 			collide = GameObject.Find("PaddlePlaneRed");
 		}
 
-		InitState();
+		if (isServer) {
+			InitState();
+		}
+
+		StartCoroutine(SendPosCoroutine(0.2f));
 	}
 
 	[Server]
@@ -43,9 +47,9 @@ public class PongPaddle : NetworkBehaviour {
 
 	void SyncState () {
 		if (!isLocalPlayer) {
-		transform.position = state.pos;
+			transform.position = state.pos;
 		}
-		Vector3 vec = state.pos;
+		Vector3 vec = transform.position;
 		vec.z = collide.transform.position.z;
 		transform.position = vec;
 	}
@@ -78,7 +82,6 @@ public class PongPaddle : NetworkBehaviour {
 			}
 			Debug.DrawLine(cam.transform.position, posToGo);
 			transform.position = posToGo;
-			CmdRaycastNewPos(posToGo);
 		}
 		SyncState();
 	}
@@ -86,5 +89,12 @@ public class PongPaddle : NetworkBehaviour {
 	[Command]
 	void CmdRaycastNewPos (Vector3 posToSet) {
 		state.pos = posToSet;
+	}
+
+	IEnumerator SendPosCoroutine (float interval) {
+		while (true) {
+			CmdRaycastNewPos(transform.position);
+			yield return new WaitForSeconds(interval);
+		}
 	}
 }

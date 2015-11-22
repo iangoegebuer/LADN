@@ -19,7 +19,10 @@ public class BallCtl : NetworkBehaviour {
 		Debug.Log (isClient);
 		Debug.Log (isServer);
 		rb = GetComponent<Rigidbody>();
-		InitState();
+		if (isServer) {
+			InitState();
+			StartCoroutine(SendPosCoroutine(0.2f));
+		}
 	}
 
 	[Server]
@@ -42,16 +45,15 @@ public class BallCtl : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//TestRandMotion();
-		HandleAllMotion();
+		if (isServer) {
+			HandleAllMotion();
+		}
 		SyncState();
 	}
 
 	
 	void SyncState () {
-		if (isServer) {
-			physState.position = rb.position;
-			physState.vel = rb.velocity;
-		} else {
+		if (!isServer) {
 			rb.position = physState.position;
 			rb.velocity = physState.vel;
 		}
@@ -86,5 +88,14 @@ public class BallCtl : NetworkBehaviour {
 			rb.velocity = new Vector3(Random.value, Random.value, Random.value) - Vector3.one * 0.5f;
 		}
 		rb.velocity = rb.velocity.normalized * 5f;
+	}
+
+	[Server]
+	IEnumerator SendPosCoroutine (float interval) {
+		while (true) {
+			physState.position = rb.position;
+			physState.vel = rb.velocity;
+			yield return new WaitForSeconds(interval);
+		}
 	}
 }
