@@ -9,12 +9,14 @@ public class MultiplayerCube : NetworkBehaviour {
 		public float y;
 	}
 	
-	[SyncVar] CubeState state;
+	[SyncVar]
+	CubeState state;
 
 	void Awake () {
 		InitState();
 	}
 
+	[Server]
 	void InitState () {
 		state.x = 0f;
 		state.y = 0f;
@@ -39,17 +41,26 @@ public class MultiplayerCube : NetworkBehaviour {
 
 	void HandleInput ()
 	{
+		float dx = 0;
+		float dy = 0;
 		if (Input.GetKey (KeyCode.LeftArrow)) {
-			state.x -= SPEED_AROUND;
+			dx -= SPEED_AROUND;
 		}
 		if (Input.GetKey (KeyCode.RightArrow)) {
-			state.x += SPEED_AROUND;
+			dx += SPEED_AROUND;
 		}
 		if (Input.GetKey (KeyCode.DownArrow)) {
-			state.y -= SPEED_AROUND;
+			dy -= SPEED_AROUND;
 		}
 		if (Input.GetKey (KeyCode.UpArrow)) {
-			state.y += SPEED_AROUND;
+			dy += SPEED_AROUND;
 		}
+		CmdMoveState(dx, dy);
+	}
+
+	[Command]
+	void CmdMoveState (float dx, float dy) {
+		state.x += dx;
+		state.y += dy;
 	}
 }
