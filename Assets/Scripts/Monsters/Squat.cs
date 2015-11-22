@@ -6,6 +6,9 @@ public class Squat : NetworkBehaviour {
 	[SyncVar]
 	float r, g, b;
 
+	[SyncVar]
+	public float rotation;
+
 	public float lifeSpan;
 	public float lifeSpanRange;
 
@@ -22,7 +25,7 @@ public class Squat : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, rotation));
 	}
 
 	IEnumerator KillMeIn (float time) {

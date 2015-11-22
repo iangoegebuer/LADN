@@ -130,10 +130,13 @@ public class PongPaddle : NetworkBehaviour {
 			GameObject mons = Instantiate<GameObject>(allMonsters[monsterInd]);
 			mons.transform.position = pos;
 			if (normal == Vector3.left) {
+				mons.GetComponent<Squat>().rotation = 90f;
 				mons.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));
 			} else if (normal == Vector3.down) {
+				mons.GetComponent<Squat>().rotation = 180f;
 				mons.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
 			} else if (normal == Vector3.right) {
+				mons.GetComponent<Squat>().rotation = -90f;
 				mons.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -90f));
 			}
 			NetworkServer.Spawn(mons);
