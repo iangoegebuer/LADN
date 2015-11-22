@@ -165,6 +165,7 @@ MonoBehaviour:
   - {fileID: 149514, guid: aa1870f39e5ed554ca7b96c5d31a5043, type: 2}
   - {fileID: 129438, guid: 4bc2bf550b241fc4aa01b5b4aef6fa06, type: 2}
   - {fileID: 158884, guid: a371da0098f97324eb48024da68c10af, type: 2}
+  - {fileID: 143970, guid: ac0cdf2114185c9428b23d8fee3e8533, type: 2}
   monsterIntervalSec: 2.5
 --- !u!114 &11459022
 MonoBehaviour:
@@ -207,7 +208,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: allMonsters.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalPlayerAuthority
@@ -249,6 +250,10 @@ Prefab:
       propertyPath: allMonsters.Array.data[3]
       value: 
       objectReference: {fileID: 158884, guid: a371da0098f97324eb48024da68c10af, type: 2}
+    - target: {fileID: 0}
+      propertyPath: allMonsters.Array.data[4]
+      value: 
+      objectReference: {fileID: 143970, guid: ac0cdf2114185c9428b23d8fee3e8533, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 181646}
