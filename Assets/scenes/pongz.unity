@@ -2354,6 +2354,7 @@ MonoBehaviour:
   maxX: 9
   minY: -8.80000019
   maxY: 11
+  allMonsters: []
 --- !u!23 &1138058289
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3298,6 +3299,7 @@ MonoBehaviour:
   maxX: 9
   minY: -8.80000019
   maxY: 11
+  allMonsters: []
 --- !u!23 &2128601422
 MeshRenderer:
   m_ObjectHideFlags: 0
