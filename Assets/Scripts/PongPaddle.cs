@@ -57,7 +57,7 @@ public class PongPaddle : NetworkBehaviour {
 				RaycastHit hit = hits [i];
 				
 				if(hit.collider.gameObject == collide) {
-					Debug.Log(hit.collider.name + " X: " + state.pos.x + " Y: " + state.pos.y);
+					//Debug.Log(hit.collider.name + " X: " + state.pos.x + " Y: " + state.pos.y);
 					if(hit.point.x > minX && hit.point.x < maxX)
 						posToGo.x = hit.point.x;
 					else if( hit.point.x < minX)

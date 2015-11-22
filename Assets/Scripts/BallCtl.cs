@@ -7,12 +7,14 @@ public class BallCtl : NetworkBehaviour {
 		public Vector3 position;
 		public Vector3 vel;
 	}
+	public GameObject scores;
 	Rigidbody rb;
+	Vector3 startPos;
 
 	[SyncVar]
 	RBInfo physState;
 
-	// Use this for initialization
+	// Use this for initialization  ((Random.value - 0.5f)<0)?1f:
 	void Start () {
 		Debug.Log (isClient);
 		Debug.Log (isServer);
@@ -23,6 +25,7 @@ public class BallCtl : NetworkBehaviour {
 	[Server]
 	void InitState () {
 		rb.isKinematic = false;
+		startPos = transform.position;
 		rb.velocity = new Vector3(Random.value - 0.5f, Random.value - 0.5f, ((Random.value - 0.5f)<0)?1f:-1f) * 50f;
 		physState.position = rb.position;
 		physState.vel = rb.velocity;
@@ -30,7 +33,8 @@ public class BallCtl : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		TestRandMotion();
+		//TestRandMotion();
+		HandleAllMotion();
 		SyncState();
 	}
 
@@ -42,6 +46,26 @@ public class BallCtl : NetworkBehaviour {
 		} else {
 			rb.position = physState.position;
 			rb.velocity = physState.vel;
+		}
+	}
+
+	[Server]
+	void HandleAllMotion () {
+		if (transform.position.z < -25f) {
+			transform.position = startPos;
+			rb = GetComponent<Rigidbody>();
+			
+			rb.velocity = new Vector3(Random.value - 0.5f, Random.value - 0.5f, 1f) * 50f;
+			scores.GetComponent<ScoreHandler>().UpdateRed(1);
+			
+		}
+		if (transform.position.z > 180f) {
+			transform.position = startPos;
+			rb = GetComponent<Rigidbody>();
+			
+			rb.velocity = new Vector3(Random.value - 0.5f, Random.value - 0.5f, -1f) * 50f;
+			scores.GetComponent<ScoreHandler>().UpdateGreen(1);
+			
 		}
 	}
 
