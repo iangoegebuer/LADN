@@ -2431,6 +2431,7 @@ MonoBehaviour:
   cam: {fileID: 639808806}
   collide: {fileID: 1205654366}
   ballPrefab: {fileID: 0}
+  RedMaterial: {fileID: 2100000, guid: 890b55c08b6cee9418572a87e7561823, type: 2}
   minX: -11
   maxX: 9
   minY: -8.80000019
@@ -3373,6 +3374,7 @@ MonoBehaviour:
   cam: {fileID: 669840010}
   collide: {fileID: 95143957}
   ballPrefab: {fileID: 0}
+  RedMaterial: {fileID: 0}
   minX: -11
   maxX: 9
   minY: -8.80000019

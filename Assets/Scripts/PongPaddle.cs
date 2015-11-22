@@ -10,6 +10,7 @@ public class PongPaddle : NetworkBehaviour {
 	public GameObject cam;
 	public GameObject collide;
 	public GameObject ballPrefab;
+	public Material RedMaterial;
 	public float minX;
 	public float maxX;
 	public float minY;
@@ -27,6 +28,8 @@ public class PongPaddle : NetworkBehaviour {
 				GameObject ball = Instantiate(ballPrefab);
 				ball.GetComponent<BallCtl>().scores = GameObject.Find("Scoreboard");
 				NetworkServer.Spawn(ball);
+			} else {
+				GetComponent<MeshRenderer>().material = RedMaterial;
 			}
 		} else {
 			collide = GameObject.Find("PaddlePlaneRed");
