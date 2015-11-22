@@ -152,6 +152,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   collide: {fileID: 0}
   ballPrefab: {fileID: 113356, guid: ca698044760709a48b87a8a72888a310, type: 2}
+  RedMaterial: {fileID: 2100000, guid: 890b55c08b6cee9418572a87e7561823, type: 2}
   minX: -11
   maxX: 9
   minY: -8.80000019
@@ -203,6 +204,10 @@ Prefab:
       propertyPath: ballPrefab
       value: 
       objectReference: {fileID: 113356, guid: ca698044760709a48b87a8a72888a310, type: 2}
+    - target: {fileID: 0}
+      propertyPath: RedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 890b55c08b6cee9418572a87e7561823, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 181646}

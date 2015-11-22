@@ -28,18 +28,19 @@ public class PongPaddle : NetworkBehaviour {
 				GameObject ball = Instantiate(ballPrefab);
 				ball.GetComponent<BallCtl>().scores = GameObject.Find("Scoreboard");
 				NetworkServer.Spawn(ball);
-			} else {
-				GetComponent<MeshRenderer>().material = RedMaterial;
 			}
 		} else {
 			collide = GameObject.Find("PaddlePlaneRed");
+			GetComponent<MeshRenderer>().material = RedMaterial;
 		}
 
 		if (isServer) {
 			InitState();
 		}
 
-		StartCoroutine(SendPosCoroutine(0.2f));
+		if (isLocalPlayer) {
+			StartCoroutine(SendPosCoroutine(0.2f));
+		}
 	}
 
 	[Server]
@@ -71,7 +72,7 @@ public class PongPaddle : NetworkBehaviour {
 				RaycastHit hit = hits [i];
 				
 				if(hit.collider.gameObject == collide) {
-					//Debug.Log(hit.collider.name + " X: " + state.pos.x + " Y: " + state.pos.y);
+					Debug.Log(hit.collider.name + " X: " + state.pos.x + " Y: " + state.pos.y);
 					if(hit.point.x > minX && hit.point.x < maxX)
 						posToGo.x = hit.point.x;
 					else if( hit.point.x < minX)
