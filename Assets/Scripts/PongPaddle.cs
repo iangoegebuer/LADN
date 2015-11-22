@@ -19,7 +19,7 @@ public class PongPaddle : NetworkBehaviour {
 	PaddleState state;
 
 	[SyncVar]
-	int statex,statey,statez;
+	float statex,statey,statez;
 	// Use this for initialization
 	void Start () {
 		cam = GameObject.Find("CardboardMain").transform.FindChild("Head").gameObject;
@@ -55,7 +55,7 @@ public class PongPaddle : NetworkBehaviour {
 
 	void SyncState () {
 		if (!isLocalPlayer) {
-			transform.position = state.pos;
+			transform.position = new Vector3(statex,statey,statez);
 		}
 		Vector3 vec = transform.position;
 		vec.z = collide.transform.position.z;
