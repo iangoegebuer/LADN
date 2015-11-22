@@ -30,6 +30,14 @@ public class BallCtl : NetworkBehaviour {
 		physState.position = rb.position;
 		physState.vel = rb.velocity;
 	}
+
+	static IEnumerator ResetTrail(TrailRenderer trail)
+	{
+		var trailTime = trail.time;
+		trail.time = -1;
+		yield return new WaitForEndOfFrame();
+		trail.time = trailTime;
+	}  
 	
 	// Update is called once per frame
 	void Update () {
@@ -57,6 +65,8 @@ public class BallCtl : NetworkBehaviour {
 			
 			rb.velocity = new Vector3(Random.value - 0.5f, Random.value - 0.5f, 1f) * 50f;
 			scores.GetComponent<ScoreHandler>().UpdateRed(1);
+			TrailRenderer TR = GetComponent<TrailRenderer>();
+			ResetTrail(TR);
 			
 		}
 		if (transform.position.z > 180f) {
@@ -65,7 +75,8 @@ public class BallCtl : NetworkBehaviour {
 			
 			rb.velocity = new Vector3(Random.value - 0.5f, Random.value - 0.5f, -1f) * 50f;
 			scores.GetComponent<ScoreHandler>().UpdateGreen(1);
-			
+			TrailRenderer TR = GetComponent<TrailRenderer>();
+			ResetTrail(TR);
 		}
 	}
 
