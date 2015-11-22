@@ -10,6 +10,7 @@ public class PongPaddle : NetworkBehaviour {
 	public GameObject cam;
 	public GameObject collide;
 	public GameObject ballPrefab;
+	public GameObject scoreprefab;
 	public Material RedMaterial;
 	public float minX;
 	public float maxX;
@@ -18,20 +19,23 @@ public class PongPaddle : NetworkBehaviour {
 
 	public GameObject[] allMonsters;
 
-	[SyncVar(hook = "OnPaddleStateChange")]
 	PaddleState state;
+
+	[SyncVar]
+	float statex,statey,statez;
 	// Use this for initialization
 	void Start () {
 		cam = GameObject.Find("CardboardMain").transform.FindChild("Head").gameObject;
 		if((isServer && isLocalPlayer) || (!isServer && !isLocalPlayer)) {
 			collide = GameObject.Find("PaddlePlaneGreen");
 
-			if (isServer) {
-				CmdSpawnBall();
-			}
+
 		} else {
 			collide = GameObject.Find("PaddlePlaneRed");
 			GetComponent<MeshRenderer>().material = RedMaterial;
+			if (isServer) {
+				CmdSpawnBall();
+			}
 		}
 
 		if (isServer) {
@@ -39,7 +43,7 @@ public class PongPaddle : NetworkBehaviour {
 		}
 
 		if (isLocalPlayer) {
-			StartCoroutine(SendPosCoroutine(0.5f));
+			StartCoroutine(SendPosCoroutine(0.1f));
 		}
 	}
 
@@ -52,7 +56,7 @@ public class PongPaddle : NetworkBehaviour {
 
 	void SyncState () {
 		if (!isLocalPlayer) {
-			transform.position = state.pos;
+			transform.position = new Vector3(statex,statey,statez);
 		}
 		Vector3 vec = transform.position;
 		vec.z = collide.transform.position.z;
@@ -100,12 +104,18 @@ public class PongPaddle : NetworkBehaviour {
 	[Command]
 	void CmdRaycastNewPos (Vector3 posToSet) {
 		state.pos = posToSet;
+		statex = state.pos.x;
+		statey = state.pos.y;
+		statez = state.pos.z;
 	}
 
 	[Command]
 	void CmdSpawnBall () {
+		GameObject scoreboard = Instantiate<GameObject>(scoreprefab);
+		NetworkServer.Spawn(scoreboard);
+
 		GameObject ball = Instantiate<GameObject>(ballPrefab);
-		ball.GetComponent<BallCtl>().scores = GameObject.Find("Scoreboard");
+		ball.GetComponent<BallCtl> ().scores = scoreboard;
 		NetworkServer.Spawn(ball);
 	}
 
