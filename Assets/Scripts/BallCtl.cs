@@ -20,6 +20,7 @@ public class BallCtl : NetworkBehaviour {
 		Debug.Log (isServer);
 		rb = GetComponent<Rigidbody>();
 		InitState();
+
 	}
 
 	[Server]

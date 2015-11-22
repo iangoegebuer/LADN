@@ -25,6 +25,7 @@ public class PongPaddle : NetworkBehaviour {
 
 			if (isServer) {
 				GameObject ball = Instantiate(ballPrefab);
+				ball.GetComponent<BallCtl>().scores = GameObject.Find("Scoreboard");
 				NetworkServer.Spawn(ball);
 			}
 		} else {
